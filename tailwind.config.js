@@ -4,9 +4,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "hsl(110, 50%, 70%)",
-        secondary: "hsl(141, 43%, 62%)",
-        tertiary: "hsl(163, 41%, 52%)",
+        primary: "hsl(120, 38%, 12%)",
+        secondary: "hsl(113, 33%, 26%)",
+        tertiary: "hsl(92, 45%, 32%)",
       },
     },
   },
