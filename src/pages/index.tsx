@@ -1,6 +1,5 @@
 import { Form } from "@/components/form/form.component";
-import { AppHead } from "@/ui";
-import Container from "@/ui/container/container.component";
+import { AppHead, Container } from "@/ui";
 
 export default function Home() {
   return (
