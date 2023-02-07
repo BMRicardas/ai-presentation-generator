@@ -1,55 +1,23 @@
-import { FormEvent, useState } from "react";
+import React from "react";
 
 type Props = {};
 
 export function Form({}: Props) {
-  const [animalInput, setAnimalInput] = useState("");
-  const [result, setResult] = useState();
-
-  async function onSubmit(event: FormEvent) {
-    event.preventDefault();
-    try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ animal: animalInput }),
-      });
-
-      const data = await response.json();
-      if (response.status !== 200) {
-        throw (
-          data.error ||
-          new Error(`Request failed with status ${response.status}`)
-        );
-      }
-
-      setResult(data.result);
-      setAnimalInput("");
-    } catch (error) {
-      // Consider implementing your own error handling logic here
-      console.error(error);
-      alert(error.message);
-    }
-  }
-
   return (
-    <div>
-      <main>
-        <h3>Name my pet</h3>
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            name="animal"
-            placeholder="Enter an animal"
-            value={animalInput}
-            onChange={(e) => setAnimalInput(e.target.value)}
-          />
-          <input type="submit" value="Generate names" />
-        </form>
-        <div>{result}</div>
-      </main>
-    </div>
+    <form className="my-5 flex flex-col items-center text-center">
+      <div className="flex justify-center items-center flex-wrap gap-x-1 mb-2">
+        <label htmlFor="search">I want to make a presentation about </label>
+        <input
+          type="text"
+          id="search"
+          required
+          className="px-2 py-1 border"
+          placeholder="...topic"
+        />
+      </div>
+      <button className="px-2 py-1 rounded bg-primary max-w-fit hover:bg-secondary">
+        Submit
+      </button>
+    </form>
   );
 }
