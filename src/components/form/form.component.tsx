@@ -1,5 +1,4 @@
-import { ChangeEvent, FormEvent, useRef } from "react";
-import { regexp } from "./form.constants";
+import { FormEvent, useRef } from "react";
 
 export function Form() {
   const inputRef = useRef<HTMLInputElement>(null);
