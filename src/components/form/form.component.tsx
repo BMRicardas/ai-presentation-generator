@@ -5,11 +5,11 @@ export function Form() {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (inputRef.current?.value.trim().length === 0) {
-      return;
-    }
+    if (!inputRef.current) return;
 
-    console.log(inputRef.current?.value);
+    if (inputRef.current.value.trim().length === 0) return;
+
+    console.log(inputRef.current.value);
   }
 
   return (
