@@ -67,7 +67,7 @@ export function Form() {
       </form>
       {loading && <div>Loading...</div>}
 
-      {keywords && !loading && (
+      {keywords.length && !loading && (
         <ul>
           {keywords.map((keyword) => (
             <li key={keyword}>{keyword}</li>
