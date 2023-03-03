@@ -1,6 +1,7 @@
 import { FormEvent, useRef, useState } from "react";
 
 import { openai } from "@/tools";
+import { editPrompt, submitPrompt } from "./form.utils";
 
 export function Form() {
   const [loading, setLoading] = useState(false);
@@ -18,12 +19,9 @@ export function Form() {
 
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: `List 4 product keywords to target on a landing page of ${inputRef.current.value}. Include keywords that customers would search to find this page`,
+      prompt: submitPrompt(inputRef.current.value),
       max_tokens: 100,
     });
-
-    console.log(completion.data.choices[0].text);
-    console.log(completion.data);
 
     if (completion.data.choices[0].text) {
       setKeywords(
@@ -37,7 +35,18 @@ export function Form() {
       );
     }
 
+    console.log({ keywords });
+
     setLoading(false);
+  }
+
+  async function handleKeywordRegenerate(keywords: string[], index: number) {
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: editPrompt(keywords, index),
+      max_tokens: 100,
+    });
+    console.log({ completion: completion.data.choices[0].text });
   }
 
   return (
@@ -65,15 +74,17 @@ export function Form() {
           Submit
         </button>
       </form>
-      {loading && <div>Loading...</div>}
+      {loading ? <div>Loading...</div> : null}
 
-      {keywords.length && !loading && (
+      {keywords.length && !loading ? (
         <ul>
-          {keywords.map((keyword) => (
-            <li key={keyword}>{keyword}</li>
+          {keywords.map((keyword, i, self) => (
+            <li key={i} onClick={() => handleKeywordRegenerate(self, i)}>
+              {keyword}
+            </li>
           ))}
         </ul>
-      )}
+      ) : null}
     </>
   );
 }
