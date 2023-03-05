@@ -35,8 +35,6 @@ export function Form() {
       );
     }
 
-    console.log({ keywords });
-
     setLoading(false);
   }
 
@@ -46,7 +44,6 @@ export function Form() {
       prompt: editPrompt(keywords, index),
       max_tokens: 100,
     });
-    console.log({ completion: completion.data.choices[0].text });
   }
 
   return (
